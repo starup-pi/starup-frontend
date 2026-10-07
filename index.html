@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#152c45">
+  <title>StarUP — demandas e soluções</title>
+  <link rel="manifest" href="/manifest.json"><link rel="icon" href="/icon.svg">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="stylesheet" href="/app.css"><script src="/app.js" defer></script>
+</head>
+<body>
+<header><a href="/" class="brand">StarUP</a><span>Conexões que viram soluções</span></header>
+<main>
+  <div id="network-status" role="status" hidden></div>
+  <div id="update-banner" hidden>Uma atualização está disponível. Salve seus formulários antes de atualizar. <button id="update-app">Atualizar</button></div>
+  <p id="notice" role="status" aria-live="polite"></p>
+  <section id="auth-panel">
+    <h1>Encontre quem resolve seu próximo desafio.</h1>
+    <p>Explore demandas reais e conheça startups avaliadas por seus clientes.</p>
+    <details><summary>Entrar</summary>
+      <form id="login-form">
+        <label>E-mail<input name="email" type="email" autocomplete="username" required maxlength="255"></label>
+        <label>Senha<input name="password" type="password" autocomplete="current-password" required maxlength="128"></label>
+        <button>Entrar</button>
+      </form>
+    </details>
+    <details><summary>Criar conta</summary>
+      <form id="register-form">
+        <label>Quero participar como<select name="role"><option value="CLIENT">Cliente</option><option value="STARTUP">Startup</option><option value="INVESTOR">Investidor — leitura privada</option></select></label>
+        <label>E-mail<input name="email" type="email" autocomplete="email" required maxlength="255"></label>
+        <label>Senha<input name="password" type="password" autocomplete="new-password" required minlength="8" maxlength="128"></label>
+        <div data-registration="CLIENT">
+          <label>Tipo de cliente<select name="person_type"><option value="PF">Pessoa física</option><option value="PJ">Pessoa jurídica</option></select></label>
+          <label>CPF ou CNPJ<input name="document" maxlength="32"></label>
+          <label>Nome de apresentação<input name="display_name" maxlength="120"></label>
+        </div>
+        <div data-registration="STARTUP" hidden>
+          <label>Nome da startup<input name="startup_name" maxlength="100"></label>
+          <label>Descrição curta<textarea name="description" maxlength="300"></textarea></label>
+          <label>Site<input name="website" type="url"></label>
+        </div>
+        <p data-registration="INVESTOR" hidden>Seu cadastro e sua atividade de leitura não aparecem para outros usuários. Não coletamos CPF, CNPJ, cargo ou fundo neste modo.</p>
+        <label class="check"><input name="policy" type="checkbox" required> Li a <a href="/privacy.html" target="_blank" rel="noopener">política de privacidade</a>.</label>
+        <button>Criar conta</button>
+      </form>
+    </details>
+  </section>
+  <section id="account-panel" hidden>
+    <div class="row"><h1 id="account-title"></h1><button id="logout" class="secondary">Sair</button></div>
+    <button id="enable-push" class="secondary">Ativar notificações</button>
+    <button id="disable-push" class="secondary">Desativar notificações</button>
+    <details><summary>Gerenciar conta</summary><p>A exclusão remove seus identificadores e retira conteúdo do feed. O histórico mínimo de avaliações é preservado sem identidade pública.</p><button id="erase-account" class="danger">Excluir minha conta</button></details>
+  </section>
+  <section id="demand-panel" hidden>
+    <details><summary>Publicar uma demanda</summary>
+      <form id="demand-form">
+        <label>Título<input name="title" required maxlength="160"></label>
+        <label>Descrição<textarea name="description" required maxlength="10000"></textarea></label>
+        <label>Categoria<select name="category_id" id="category-select" required></select></label>
+        <label>Visibilidade<select name="visibility"><option value="PUBLIC">Pública — aparece no feed</option><option value="PRIVATE">Privada — somente você; publique para receber propostas</option></select></label>
+        <button>Publicar demanda</button>
+      </form>
+    </details>
+  </section>
+  <section id="workspace-panel" hidden><h2>Minhas propostas e entregas</h2><div id="solutions"></div></section>
+  <section aria-labelledby="feed-title">
+    <div class="row"><h2 id="feed-title">Vitrine</h2><button id="refresh-feed" class="secondary">Atualizar</button></div>
+    <p id="feed-status" class="muted"></p><div id="feed"></div><button id="more-feed" hidden>Carregar mais</button>
+  </section>
+  <section id="private-demands-panel" hidden><h2>Minhas demandas privadas</h2><div id="private-demands"></div></section>
+</main>
+<footer>Demandas reais. Soluções validadas. <a href="/privacy.html">Privacidade</a></footer>
+</body></html>
